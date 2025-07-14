@@ -1,0 +1,51 @@
+<div class="max-w-2xl mx-auto mt-10 p-8 bg-white rounded-lg shadow-md">
+  <h2 class="text-2xl font-bold mb-6 text-gray-800">Guest Registration Form</h2>
+  <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()" class="space-y-6">
+    
+    <div>
+      <label for="name" class="block text-sm font-medium text-gray-700">Name</label>
+      <input type="text" id="name" formControlName="name" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+    </div>
+
+    <div>
+      <label for="dateOfBirth" class="block text-sm font-medium text-gray-700">Date of Birth</label>
+      <input type="date" id="dateOfBirth" formControlName="dateOfBirth" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+    </div>
+
+    <div>
+      <label for="passportNumber" class="block text-sm font-medium text-gray-700">Passport Number</label>
+      <input type="text" id="passportNumber" formControlName="passportNumber" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+    </div>
+
+    <div>
+      <label for="nationality" class="block text-sm font-medium text-gray-700">Nationality</label>
+      <input type="text" id="nationality" formControlName="nationality" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+    </div>
+
+    <div>
+      <label for="nrc" class="block text-sm font-medium text-gray-700">NRC (Optional)</label>
+      <input type="text" id="nrc" formControlName="nrc" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+    </div>
+
+    <div>
+      <label for="currentAddress" class="block text-sm font-medium text-gray-700">Current Address</label>
+      <textarea id="currentAddress" formControlName="currentAddress" rows="3" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"></textarea>
+    </div>
+
+    <div>
+      <label for="permanentAddress" class="block text-sm font-medium text-gray-700">Permanent Address (Optional)</label>
+      <textarea id="permanentAddress" formControlName="permanentAddress" rows="3" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"></textarea>
+    </div>
+
+    <div>
+      <label for="attachedFiles" class="block text-sm font-medium text-gray-700">Attach Files</label>
+      <input type="file" id="attachedFiles" (change)="onFileChange($event)" multiple class="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-600 hover:file:bg-indigo-100">
+    </div>
+
+    <div>
+      <button type="submit" [disabled]="!registrationForm.valid" class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:bg-gray-400">
+        Submit
+      </button>
+    </div>
+  </form>
+</div>
