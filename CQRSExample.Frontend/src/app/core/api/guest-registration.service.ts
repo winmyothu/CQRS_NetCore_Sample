@@ -6,11 +6,11 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class GuestRegistrationService {
-  private apiUrl = 'https://localhost:7258/api/GuestRegistration'; // Adjust the port if your backend runs on a different one.
+  private guestRegistrationUrl = 'https://localhost:59080/api/GuestRegistration';
 
   constructor(private http: HttpClient) { }
 
   createRegistration(formData: FormData): Observable<any> {
-    return this.http.post(this.apiUrl, formData);
+    return this.http.post(this.guestRegistrationUrl, formData, { withCredentials: true });
   }
 }
