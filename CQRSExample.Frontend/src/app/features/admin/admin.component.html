@@ -1,0 +1,35 @@
+<nav class="bg-seagreen p-4 text-white flex items-center justify-between">
+  <div class="container mx-auto flex items-center justify-between">
+    <a class="text-xl font-bold" href="#">CQRS Example</a>
+    <button class="lg:hidden" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="text-white">☰</span>
+    </button>
+    <div class="hidden lg:flex items-center" id="navbarNav">
+      <app-user-menu></app-user-menu>
+    </div>
+  </div>
+</nav>
+
+<div class="flex">
+  <!-- Sidebar -->
+  <aside class="w-64 bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200 p-4 min-h-screen shadow-md">
+    <nav>
+      <ul class="space-y-2">
+        <li>
+          <a routerLink="/admin/dashboard" routerLinkActive="bg-primary-100 text-primary-800" class="block hover:bg-primary-50 dark:hover:bg-gray-700 p-2 rounded">Dashboard</a>
+        </li>
+        <li>
+          <a routerLink="/admin/guests" routerLinkActive="bg-primary-100 text-primary-800" class="block hover:bg-primary-50 dark:hover:bg-gray-700 p-2 rounded">Guest List</a>
+        </li>
+        <li>
+          <a routerLink="/admin/transactions" routerLinkActive="bg-primary-100 text-primary-800" class="block hover:bg-primary-50 dark:hover:bg-gray-700 p-2 rounded">Transaction List</a>
+        </li>
+      </ul>
+    </nav>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="flex-1 container mx-auto mt-4 p-4 bg-white dark:bg-gray-900 text-gray-900 dark:text-white rounded-lg shadow">
+    <router-outlet></router-outlet>
+  </main>
+</div>

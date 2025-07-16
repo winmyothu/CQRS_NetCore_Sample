@@ -22,7 +22,7 @@ namespace CQRSExample.Features.Auth.Handlers
         {
             if (await _context.Users.AnyAsync(u => u.Username == request.Username, cancellationToken))
             {
-                return new AuthResult { Succeeded = false, Errors = new[] { "Username already exists." } };
+                return new AuthResult { Succeeded = false, AccessToken = "", RefreshToken = "", Errors = new[] { "Username already exists." } };
             }
 
             // In a real application, use a strong password hashing library like BCrypt.Net-Core
@@ -33,13 +33,15 @@ namespace CQRSExample.Features.Auth.Handlers
             {
                 Username = request.Username,
                 PasswordHash = passwordHash,
-                Role = isAdmin ? "Admin" : "User"
+                Role = isAdmin ? "Admin" : "User",
+                RefreshTokens = new List<RefreshToken>() // Initialize the collection
+
             };
 
             _context.Users.Add(user);
             await _context.SaveChangesAsync(cancellationToken);
 
-            return new AuthResult { Succeeded = true };
+            return new AuthResult { Succeeded = true};
         }
     }
 }

@@ -85,7 +85,7 @@ export class GuestRegistrationFormComponent implements OnInit {
   onLogin(): void {
     if (this.loginForm.valid) {
       const { username, password } = this.loginForm.value;
-      this.authService.login(username, password,'1').subscribe({
+      this.authService.login(username, password).subscribe({
         next: (response) => {
           this.message = 'Login successful!';
           this.isLoggedIn = true;

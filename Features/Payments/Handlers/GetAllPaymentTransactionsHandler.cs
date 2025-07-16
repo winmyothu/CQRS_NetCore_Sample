@@ -9,7 +9,7 @@ using CQRSExample.Features.Payments.Queries;
 
 namespace CQRSExample.Features.Payments.Handlers
 {
-    public class GetAllPaymentTransactionsHandler : IRequestHandler<GetAllPaymentTransactionsQuery, IEnumerable<PaymentTransaction>>
+    public class GetAllPaymentTransactionsHandler : IRequestHandler<GetAllPaymentTransactionsQuery, PaginatedResult<PaymentTransaction>>
     {
         private readonly AppDbContext _context;
 
@@ -18,9 +18,18 @@ namespace CQRSExample.Features.Payments.Handlers
             _context = context;
         }
 
-        public async Task<IEnumerable<PaymentTransaction>> Handle(GetAllPaymentTransactionsQuery request, CancellationToken cancellationToken)
+        public async Task<PaginatedResult<PaymentTransaction>> Handle(GetAllPaymentTransactionsQuery request, CancellationToken cancellationToken)
         {
-            return await _context.PaymentTransactions.Include(pt => pt.GuestRegistration).ToListAsync(cancellationToken);
+            var query = _context.PaymentTransactions.Include(pt => pt.GuestRegistration).AsQueryable();
+
+            var totalCount = await query.CountAsync(cancellationToken);
+
+            var items = await query
+                .Skip((request.PageNumber - 1) * request.PageSize)
+                .Take(request.PageSize)
+                .ToListAsync(cancellationToken);
+
+            return new PaginatedResult<PaymentTransaction>(items, totalCount, request.PageNumber, request.PageSize);
         }
     }
 }

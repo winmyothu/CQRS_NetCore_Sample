@@ -25,6 +25,9 @@ builder.Services.AddMediatR(cfg => {
 
 builder.Services.AddValidatorsFromAssembly(typeof(Program).Assembly);
 
+builder.Services.AddHttpContextAccessor();
+
+
 builder.Services.AddScoped<CQRSExample.Features.Auth.Services.ITokenService, CQRSExample.Features.Auth.Services.TokenService>();
 
 // JWT Configuration
@@ -66,10 +69,11 @@ builder.Services.AddCors(options =>
     options.AddPolicy("AllowAngularApp",
         builder =>
         {
-            builder.WithOrigins("http://localhost:4200")
+            builder.WithOrigins("https://localhost:4200")
+            .AllowCredentials() // Allow credentials for cookies
                    .AllowAnyHeader()
-                   .AllowAnyMethod()
-                   .AllowCredentials(); // Allow credentials for cookies
+                   .AllowAnyMethod();
+                   
         });
 });
 

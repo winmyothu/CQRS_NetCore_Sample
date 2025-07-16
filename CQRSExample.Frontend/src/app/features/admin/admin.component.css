@@ -1,0 +1,12 @@
+.sidebar {
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar .nav-link.active {
+  background-color: #495057;
+}
+
+.content {
+  overflow-y: auto;
+}

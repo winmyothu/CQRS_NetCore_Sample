@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
 import { AuthService } from '../../core/api/auth.service';
 import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
@@ -21,8 +20,7 @@ export class LoginComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
-    private router: Router,
-    private http: HttpClient
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -36,36 +34,18 @@ export class LoginComponent implements OnInit {
     if (this.loginForm.valid) {
       const { username, password } = this.loginForm.value;
 
-      this.getPublicIpAddress().subscribe({
-        next: (ipAddress: string) => {
-          this.authService.login(username, password, ipAddress).subscribe({
-            next: (response) => {
-              this.message = 'Login successful!';
-              console.log('Login successful', response);
-              this.router.navigate(['/dashboard']);
-            },
-            error: (error) => {
-              this.message = 'Login failed: ' + (error.error?.message || error.message);
-              console.error('Login failed', error);
-            }
-          });
+      this.authService.login(username, password).subscribe({
+        next: (response) => {
+          this.message = 'Login successful!';
+          console.log('Login successful', response);
+          this.router.navigate(['/admin/dashboard']);
         },
-        error: (ipError: any) => {
-          this.message = 'Failed to get IP address: ' + ipError.message;
-          console.error('Failed to get IP address', ipError);
+        error: (error) => {
+          this.message = 'Login failed: ' + (error.error?.message || error.message);
+          console.error('Login failed', error);
         }
       });
     }
-  }
-
-  private getPublicIpAddress(): Observable<string> {
-    return this.http.get<{ ip: string }>('https://api.ipify.org?format=json').pipe(
-      map(response => response.ip),
-      catchError(error => {
-        console.error('Error fetching IP address:', error);
-        return of('0.0.0.0'); // Fallback IP
-      })
-    );
   }
 
   onRegisterUser(): void {

@@ -24,32 +24,43 @@ namespace CQRSExample.Features.Auth.Handlers
 
         public async Task<AuthResult> Handle(RefreshAccessTokenCommand request, CancellationToken cancellationToken)
         {
-            var refreshToken = await _context.RefreshTokens
-                .Include(rt => rt.User)
-                .SingleOrDefaultAsync(rt => rt.Token == request.RefreshToken, cancellationToken);
+            var user = await _context.Users
+                .Include(u => u.RefreshTokens)
+                .SingleOrDefaultAsync(u => u.RefreshTokens.Any(t => t.Token == request.RefreshToken), cancellationToken);
 
-            if (refreshToken == null || !refreshToken.IsActive)
+            if (user == null)
             {
-                return new AuthResult { Succeeded = false, Errors = new[] { "Invalid refresh token." } };
+                return new AuthResult { Succeeded = false, Errors = new[] { "Invalid token." } };
             }
 
-            // Revoke old token
+            var refreshToken = user.RefreshTokens.Single(t => t.Token == request.RefreshToken);
+
+            if (refreshToken.IsExpired)
+            {
+                return new AuthResult { Succeeded = false, Errors = new[] { "Refresh token has expired." } };
+            }
+
+            // Revoke the old token
             refreshToken.Revoked = DateTime.UtcNow;
             refreshToken.RevokedByIp = request.IpAddress;
 
-            // Generate new tokens
-            var newAuthResult = _tokenService.GenerateTokens(refreshToken.User, request.IpAddress);
+            // Generate new tokens for the user
+            var newAuthResult = _tokenService.GenerateTokens(user, request.IpAddress);
 
-            // Add new refresh token
-            refreshToken.User.RefreshTokens.Add(new RefreshToken
+            // Replace old refresh token with a new one
+            var newRefreshToken = new RefreshToken
             {
                 Token = newAuthResult.RefreshToken,
                 Expires = DateTime.UtcNow.AddDays(newAuthResult.RefreshTokenExpirationDays),
                 Created = DateTime.UtcNow,
-                CreatedByIp = request.IpAddress,
-                UserId = refreshToken.User.Id,
-                ReplacedByToken = newAuthResult.RefreshToken // Link to the new token
-            });
+                CreatedByIp = request.IpAddress
+            };
+            user.RefreshTokens.Add(newRefreshToken);
+
+            // Revoke the old token and set the replacement
+            refreshToken.Revoked = DateTime.UtcNow;
+            refreshToken.RevokedByIp = request.IpAddress;
+            refreshToken.ReplacedByToken = newRefreshToken.Token;
 
             await _context.SaveChangesAsync(cancellationToken);
 

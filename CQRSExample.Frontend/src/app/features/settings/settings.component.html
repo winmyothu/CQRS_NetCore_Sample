@@ -1,0 +1,12 @@
+<div class="container mx-auto p-4">
+  <h1 class="text-2xl font-bold mb-4">Settings</h1>
+  <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
+    <div class="flex items-center justify-between">
+      <h2 class="text-xl font-semibold">Dark Mode</h2>
+      <button (click)="themeService.toggleTheme()" class="relative inline-flex items-center h-6 rounded-full w-11 transition-colors duration-200 ease-in-out" [ngClass]="{ 'bg-primary-600': themeService.isDarkMode(), 'bg-gray-200': !themeService.isDarkMode() }">
+        <span class="sr-only">Enable dark mode</span>
+        <span class="inline-block w-4 h-4 transform bg-white rounded-full transition-transform duration-200 ease-in-out" [ngClass]="{ 'translate-x-6': themeService.isDarkMode(), 'translate-x-1': !themeService.isDarkMode() }"></span>
+      </button>
+    </div>
+  </div>
+</div>

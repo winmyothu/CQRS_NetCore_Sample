@@ -4,5 +4,5 @@ using CQRSExample.Models;
 
 namespace CQRSExample.Features.GuestRegistrations.Queries
 {
-    public record GetAllGuestRegistrationsQuery() : IRequest<IEnumerable<GuestRegistration>>;
+    public record GetAllGuestRegistrationsQuery(int PageNumber, int PageSize) : IRequest<PaginatedResult<GuestRegistration>>;
 }

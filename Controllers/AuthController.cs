@@ -35,11 +35,7 @@ namespace CQRSExample.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginUserQuery query)
         {
-            var ipAddress = string.IsNullOrEmpty(query.IpAddress)
-                ? HttpContext.Connection.RemoteIpAddress?.ToString()
-                : query.IpAddress;
-
-            var result = await _mediator.Send(query with { IpAddress = ipAddress });
+            var result = await _mediator.Send(query);
             if (!result.Succeeded)
             {
                 return Unauthorized(result.Errors);
@@ -51,7 +47,8 @@ namespace CQRSExample.Controllers
                 {
                     HttpOnly = true,
                     Secure = true, // Set to true in production for HTTPS
-                    SameSite = SameSiteMode.Strict,
+                   // SameSite = SameSiteMode.Strict,
+                    SameSite = SameSiteMode.None, // For cross-site cookies
                     Expires = DateTime.UtcNow.AddDays(result.RefreshTokenExpirationDays)
                 });
 

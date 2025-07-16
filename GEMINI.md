@@ -63,6 +63,34 @@ When helping or reviewing code:
 
 ---
 
+### Frontend (Angular + Tailwind CSS)
+
+#### 🧱 Stack
+
+- **Framework**: Angular 20
+- **Styling**: Tailwind CSS
+- **Architecture**: Standalone components, feature-based module structure
+
+#### 📌 Conventions
+
+- Use **PascalCase** for component and service class names.
+- Use **kebab-case** for file names (e.g., `guest-list.component.ts`).
+- Organize code using a **feature-first structure** (`features/` folder).
+- Keep components **focused and reusable**.
+- Prefer **standalone components** and use **signals** where beneficial (Angular 17+).
+- Write reactive, declarative templates — avoid imperative code in templates.
+
+#### 🎨 Tailwind CSS Guidelines
+
+- Use **utility-first classes** directly in HTML templates.
+- Use `@apply` in component `.css` files only for repeating combinations.
+- Structure layouts using Tailwind’s **Flexbox** or **Grid** (`flex`, `grid`, `gap-*`, `space-*`).
+- Use consistent **spacing** (`p-*`, `m-*`), **colors**, `rounded`, and `shadow` utilities.
+- Use responsive design with Tailwind’s `sm:`, `md:`, `lg:`, etc.
+- Ensure **accessibility** with proper `aria-` attributes, `role`, `tabindex`, and focus styles.
+
+---
+
 ## 📁 Folder Organization
 
 ```

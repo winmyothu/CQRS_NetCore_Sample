@@ -1,0 +1,69 @@
+<div class="p-4">
+  <h2 class="text-2xl font-bold mb-4">Guest List</h2>
+
+  <!-- Search and Filter -->
+  <div class="mb-4 flex items-center space-x-4">
+    <input type="text" placeholder="Search guests..." class="p-2 border border-gray-300 rounded-md w-1/3">
+    <button class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">Search</button>
+  </div>
+
+  <!-- Table -->
+  <div class="overflow-x-auto bg-white rounded-lg shadow">
+    <table class="min-w-full leading-normal">
+      <thead>
+        <tr>
+          <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+            Name <span class="cursor-pointer">&#x2195;</span>
+          </th>
+          <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+            Email <span class="cursor-pointer">&#x2195;</span>
+          </th>
+          <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+            Phone <span class="cursor-pointer">&#x2195;</span>
+          </th>
+          <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+            Registration Date <span class="cursor-pointer">&#x2195;</span>
+          </th>
+          <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Example Row (will be replaced by dynamic data) -->
+        <tr>
+          <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+            <p class="text-gray-900 whitespace-no-wrap">John Doe</p>
+          </td>
+          <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+            <p class="text-gray-900 whitespace-no-wrap">john.doe&#64;example.com</p>
+          </td>
+          <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+            <p class="text-gray-900 whitespace-no-wrap">123-456-7890</p>
+          </td>
+          <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+            <p class="text-gray-900 whitespace-no-wrap">2025-07-16</p>
+          </td>
+          <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm text-right">
+            <button class="text-indigo-600 hover:text-indigo-900">Edit</button>
+            <button class="text-red-600 hover:text-red-900 ml-4">Delete</button>
+          </td>
+        </tr>
+        <!-- End Example Row -->
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Pagination -->
+  <div class="px-5 py-5 bg-white border-t flex flex-col xs:flex-row items-center xs:justify-between">
+    <span class="text-xs xs:text-sm text-gray-900">
+        Showing 1 to 10 of 50 Entries
+    </span>
+    <div class="inline-flex mt-2 xs:mt-0">
+      <button class="text-sm bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2 px-4 rounded-l">
+        Prev
+      </button>
+      <button class="text-sm bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2 px-4 rounded-r">
+        Next
+      </button>
+    </div>
+  </div>
+</div>

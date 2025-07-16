@@ -9,17 +9,17 @@ namespace CQRSExample.Models
     public class GuestRegistration
     {
         public int Id { get; set; }
-        public string Name { get; set; }
+        public required string Name { get; set; }
         public DateTime DateOfBirth { get; set; }
-        public string PassportNumber { get; set; }
-        public string Nationality { get; set; }
-        public string Nrc { get; set; }
-        public string CurrentAddress { get; set; }
-        public string PermanentAddress { get; set; }
+        public required string PassportNumber { get; set; }
+        public required string Nationality { get; set; }
+        public required string Nrc { get; set; }
+        public required string CurrentAddress { get; set; }
+        public required string PermanentAddress { get; set; }
 
         /// <summary>
         /// Stores the URLs of the attached files, serialized as a JSON string.
         /// </summary>
-        public string AttachedFileUrls { get; set; }
+        public required string AttachedFileUrls { get; set; }
     }
 }

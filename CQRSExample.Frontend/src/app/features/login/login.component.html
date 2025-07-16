@@ -1,5 +1,5 @@
-<div class="max-w-md mx-auto mt-10 p-8 bg-white rounded-lg shadow-md">
-  <h2 class="text-2xl font-bold mb-6 text-gray-800">Admin Login</h2>
+<div class="max-w-md mx-auto mt-10 p-8 bg-white dark:bg-gray-800 rounded-lg shadow-md">
+  <h2 class="text-2xl font-bold mb-6 text-gray-800 dark:text-white">Admin Login</h2>
 
   <div *ngIf="message" class="p-4 mb-4 text-sm rounded-lg" [ngClass]="{'bg-green-100 text-green-800': message.includes('successful'), 'bg-red-100 text-red-800': message.includes('failed')}" role="alert">
     {{ message }}
@@ -7,18 +7,18 @@
 
   <form [formGroup]="loginForm" (ngSubmit)="onLogin()" class="space-y-4">
     <div>
-      <label for="username" class="block text-sm font-medium text-gray-700">Username</label>
-      <input type="text" id="username" formControlName="username" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required>
+      <label for="username" class="block text-sm font-medium text-gray-700 dark:text-gray-200">Username</label>
+      <input type="text" id="username" formControlName="username" class="mt-1 block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm dark:bg-gray-700 dark:text-white" required>
     </div>
     <div>
-      <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
-      <input type="password" id="password" formControlName="password" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required>
+      <label for="password" class="block text-sm font-medium text-gray-700 dark:text-gray-200">Password</label>
+      <input type="password" id="password" formControlName="password" class="mt-1 block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm dark:bg-gray-700 dark:text-white" required>
     </div>
     <div class="flex space-x-4">
-      <button type="submit" class="flex-1 justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500" [disabled]="loginForm.invalid">
+      <button type="submit" class="flex-1 justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500" [disabled]="loginForm.invalid">
         Login
       </button>
-      <button type="button" (click)="onRegisterUser()" class="flex-1 justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-blue-700 bg-blue-100 hover:bg-blue-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500" [disabled]="loginForm.invalid">
+      <button type="button" (click)="onRegisterUser()" class="flex-1 justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-primary-700 bg-primary-100 hover:bg-primary-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500" [disabled]="loginForm.invalid">
         Register
       </button>
     </div>

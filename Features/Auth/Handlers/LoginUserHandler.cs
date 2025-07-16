@@ -7,8 +7,9 @@ using CQRSExample.Features.Auth.Models;
 using CQRSExample.Features.Auth.Services;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
-using CQRSExample.Models; // Ensure this is present
+using CQRSExample.Models;
 using System.Linq;
+using Microsoft.AspNetCore.Http;
 
 namespace CQRSExample.Features.Auth.Handlers
 {
@@ -16,11 +17,13 @@ namespace CQRSExample.Features.Auth.Handlers
     {
         private readonly AppDbContext _context;
         private readonly ITokenService _tokenService;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public LoginUserHandler(AppDbContext context, ITokenService tokenService)
+        public LoginUserHandler(AppDbContext context, ITokenService tokenService, IHttpContextAccessor httpContextAccessor)
         {
             _context = context;
             _tokenService = tokenService;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         public async Task<AuthResult> Handle(LoginUserQuery request, CancellationToken cancellationToken)
@@ -32,7 +35,8 @@ namespace CQRSExample.Features.Auth.Handlers
                 return new AuthResult { Succeeded = false, Errors = new[] { "Invalid credentials." } };
             }
 
-            var authResult = _tokenService.GenerateTokens(user, request.IpAddress);
+            var ipAddress = _httpContextAccessor.HttpContext?.Connection?.RemoteIpAddress?.ToString() ?? "0.0.0.0";
+            var authResult = _tokenService.GenerateTokens(user, ipAddress);
 
             // Revoke old refresh tokens and add new one
             if (user.RefreshTokens == null)
@@ -44,7 +48,7 @@ namespace CQRSExample.Features.Auth.Handlers
             foreach (var oldRefreshToken in user.RefreshTokens.Where(rt => rt.IsActive))
             {
                 oldRefreshToken.Revoked = DateTime.UtcNow;
-                oldRefreshToken.RevokedByIp = request.IpAddress;
+                oldRefreshToken.RevokedByIp = ipAddress;
             }
 
             user.RefreshTokens.Add(new RefreshToken
@@ -52,8 +56,8 @@ namespace CQRSExample.Features.Auth.Handlers
                 Token = authResult.RefreshToken,
                 Expires = DateTime.UtcNow.AddDays(authResult.RefreshTokenExpirationDays),
                 Created = DateTime.UtcNow,
-                CreatedByIp = request.IpAddress,
-                UserId = user.Id
+                CreatedByIp = ipAddress,
+                UserId = user.Id // No previous token to replace
             });
 
             await _context.SaveChangesAsync(cancellationToken);

@@ -22,17 +22,17 @@ namespace CQRSExample.Controllers
         }
 
         [HttpGet("registrations")]
-        public async Task<ActionResult<IEnumerable<GuestRegistration>>> GetAllRegistrations()
+        public async Task<ActionResult<PaginatedResult<GuestRegistration>>> GetAllRegistrations([FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 10)
         {
-            var query = new GetAllGuestRegistrationsQuery();
+            var query = new GetAllGuestRegistrationsQuery(pageNumber, pageSize);
             var registrations = await _mediator.Send(query);
             return Ok(registrations);
         }
 
         [HttpGet("payments")]
-        public async Task<ActionResult<IEnumerable<PaymentTransaction>>> GetAllPaymentTransactions()
+        public async Task<ActionResult<PaginatedResult<PaymentTransaction>>> GetAllPaymentTransactions([FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 10)
         {
-            var query = new GetAllPaymentTransactionsQuery();
+            var query = new GetAllPaymentTransactionsQuery(pageNumber, pageSize);
             var payments = await _mediator.Send(query);
             return Ok(payments);
         }

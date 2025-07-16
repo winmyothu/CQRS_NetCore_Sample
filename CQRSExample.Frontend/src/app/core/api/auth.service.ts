@@ -15,8 +15,8 @@ export class AuthService {
     return this.http.post(`${this.authUrl}/register`, { username, password }, { withCredentials: true });
   }
 
-  login(username: string, password: string, ipAddress: string): Observable<any> {
-    return this.http.post<any>(`${this.authUrl}/login`, { username, password, ipAddress }, { withCredentials: true }).pipe(
+  login(username: string, password: string): Observable<any> {
+    return this.http.post<any>(`${this.authUrl}/login`, { username, password }, { withCredentials: true }).pipe(
       tap(response => {
         if (response && response.accessToken) {
           localStorage.setItem('accessToken', response.accessToken);

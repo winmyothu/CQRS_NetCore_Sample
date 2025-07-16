@@ -1,0 +1,100 @@
+<div class="p-4">
+  <h2 class="text-2xl font-bold mb-4">Guest List</h2>
+
+  <!-- Search and Filter -->
+  <div class="mb-4 flex items-center space-x-4">
+    <input type="text" placeholder="Search guests..." class="p-2 border border-gray-300 rounded-md w-1/3">
+    <button class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">Search</button>
+  </div>
+
+  <!-- Table -->
+  <div class="overflow-x-auto bg-white dark:bg-gray-800 rounded-lg shadow">
+    <table class="min-w-full leading-normal">
+      <thead>
+        <tr>
+          <th class="px-5 py-3 border-b-2 border-gray-200 dark:border-gray-700 bg-gray-100 dark:bg-gray-700 text-left text-xs font-semibold text-gray-600 dark:text-gray-300 uppercase tracking-wider">
+            ID <span class="cursor-pointer">&#x2195;</span>
+          </th>
+          <th class="px-5 py-3 border-b-2 border-gray-200 dark:border-gray-700 bg-gray-100 dark:bg-gray-700 text-left text-xs font-semibold text-gray-600 dark:text-gray-300 uppercase tracking-wider">
+            Name <span class="cursor-pointer">&#x2195;</span>
+          </th>
+          <th class="px-5 py-3 border-b-2 border-gray-200 dark:border-gray-700 bg-gray-100 dark:bg-gray-700 text-left text-xs font-semibold text-gray-600 dark:text-gray-300 uppercase tracking-wider">
+            Date of Birth <span class="cursor-pointer">&#x2195;</span>
+          </th>
+          <th class="px-5 py-3 border-b-2 border-gray-200 dark:border-gray-700 bg-gray-100 dark:bg-gray-700 text-left text-xs font-semibold text-gray-600 dark:text-gray-300 uppercase tracking-wider">
+            Passport Number <span class="cursor-pointer">&#x2195;</span>
+          </th>
+          <th class="px-5 py-3 border-b-2 border-gray-200 dark:border-gray-700 bg-gray-100 dark:bg-gray-700 text-left text-xs font-semibold text-gray-600 dark:text-gray-300 uppercase tracking-wider">
+            Nationality <span class="cursor-pointer">&#x2195;</span>
+          </th>
+          <th class="px-5 py-3 border-b-2 border-gray-200 dark:border-gray-700 bg-gray-100 dark:bg-gray-700 text-left text-xs font-semibold text-gray-600 dark:text-gray-300 uppercase tracking-wider">
+            NRC <span class="cursor-pointer">&#x2195;</span>
+          </th>
+          <th class="px-5 py-3 border-b-2 border-gray-200 dark:border-gray-700 bg-gray-100 dark:bg-gray-700 text-left text-xs font-semibold text-gray-600 dark:text-gray-300 uppercase tracking-wider">
+            Current Address <span class="cursor-pointer">&#x2195;</span>
+          </th>
+          <th class="px-5 py-3 border-b-2 border-gray-200 dark:border-gray-700 bg-gray-100 dark:bg-gray-700 text-left text-xs font-semibold text-gray-600 dark:text-gray-300 uppercase tracking-wider">
+            Permanent Address <span class="cursor-pointer">&#x2195;</span>
+          </th>
+          <th class="px-5 py-3 border-b-2 border-gray-200 dark:border-gray-700 bg-gray-100 dark:bg-gray-700"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let guest of guests">
+          <td class="px-5 py-5 border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-sm">
+            <p class="text-gray-900 dark:text-white whitespace-no-wrap">{{ guest.id }}</p>
+          </td>
+          <td class="px-5 py-5 border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-sm">
+            <p class="text-gray-900 dark:text-white whitespace-no-wrap">{{ guest.name }}</p>
+          </td>
+          <td class="px-5 py-5 border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-sm">
+            <p class="text-gray-900 dark:text-white whitespace-no-wrap">{{ guest.dateOfBirth | date: 'medium' }}</p>
+          </td>
+          <td class="px-5 py-5 border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-sm">
+            <p class="text-gray-900 dark:text-white whitespace-no-wrap">{{ guest.passportNumber }}</p>
+          </td>
+          <td class="px-5 py-5 border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-sm">
+            <p class="text-gray-900 dark:text-white whitespace-no-wrap">{{ guest.nationality }}</p>
+          </td>
+          <td class="px-5 py-5 border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-sm">
+            <p class="text-gray-900 dark:text-white whitespace-no-wrap">{{ guest.nrc }}</p>
+          </td>
+          <td class="px-5 py-5 border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-sm">
+            <p class="text-gray-900 dark:text-white whitespace-no-wrap">{{ guest.currentAddress }}</p>
+          </td>
+          <td class="px-5 py-5 border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-sm">
+            <p class="text-gray-900 dark:text-white whitespace-no-wrap">{{ guest.permanentAddress }}</p>
+          </td>
+          <td class="px-5 py-5 border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-sm text-right">
+            <button class="text-indigo-600 hover:text-indigo-900 p-1 rounded-full hover:bg-indigo-100"><i class="fas fa-edit"></i></button>
+            <button class="text-red-600 hover:text-red-900 ml-4 p-1 rounded-full hover:bg-red-100"><i class="fas fa-trash-alt"></i></button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Pagination -->
+  <div class="px-5 py-5 bg-white dark:bg-gray-800 border-t dark:border-gray-700 flex flex-col xs:flex-row items-center xs:justify-between">
+    <span class="text-xs xs:text-sm text-gray-900 dark:text-white">
+        Showing {{ (pageNumber - 1) * pageSize + 1 }} to {{ getMin(pageNumber * pageSize, totalCount) }} of {{ totalCount }} Entries
+    </span>
+    <div class="inline-flex mt-2 xs:mt-0">
+      <button class="text-sm bg-gray-300 dark:bg-gray-700 hover:bg-gray-400 dark:hover:bg-gray-600 text-gray-800 dark:text-white font-semibold py-2 px-4 rounded-l"
+              [disabled]="pageNumber === 1" (click)="onPageChange(pageNumber - 1)">
+        Prev
+      </button>
+      <ng-container *ngFor="let page of pages">
+        <button class="text-sm bg-gray-300 dark:bg-gray-700 hover:bg-gray-400 dark:hover:bg-gray-600 text-gray-800 dark:text-white font-semibold py-2 px-4"
+                [class.bg-blue-500]="pageNumber === page" [class.text-white]="pageNumber === page"
+                (click)="onPageChange(page)">
+          {{ page }}
+        </button>
+      </ng-container>
+      <button class="text-sm bg-gray-300 dark:bg-gray-700 hover:bg-gray-400 dark:hover:bg-gray-600 text-gray-800 dark:text-white font-semibold py-2 px-4 rounded-r"
+              [disabled]="pageNumber === totalPages" (click)="onPageChange(pageNumber + 1)">
+        Next
+      </button>
+    </div>
+  </div>
+</div>
