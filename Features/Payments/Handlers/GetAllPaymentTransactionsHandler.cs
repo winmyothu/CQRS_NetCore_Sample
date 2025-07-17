@@ -1,11 +1,12 @@
 using MediatR;
-using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using CQRSExample.Data;
 using CQRSExample.Models;
-using Microsoft.EntityFrameworkCore;
 using CQRSExample.Features.Payments.Queries;
+using Microsoft.EntityFrameworkCore;
+using System.Linq.Dynamic.Core;
 
 namespace CQRSExample.Features.Payments.Handlers
 {
@@ -20,16 +21,32 @@ namespace CQRSExample.Features.Payments.Handlers
 
         public async Task<PaginatedResult<PaymentTransaction>> Handle(GetAllPaymentTransactionsQuery request, CancellationToken cancellationToken)
         {
-            var query = _context.PaymentTransactions.Include(pt => pt.GuestRegistration).AsQueryable();
+            var queryable = _context.PaymentTransactions.AsQueryable();
 
-            var totalCount = await query.CountAsync(cancellationToken);
+            if (!string.IsNullOrEmpty(request.SearchTerm))
+            {
+                var searchTerm = request.SearchTerm.ToLower();
+                queryable = queryable.Where(p =>
+                    p.Status.ToLower().Contains(searchTerm) ||
+                    p.Amount.ToString().Contains(searchTerm)
+                );
+            }
 
-            var items = await query
+            if (!string.IsNullOrEmpty(request.SortField))
+            {
+                var sortOrder = request.SortOrder ?? "asc";
+                queryable = queryable.OrderBy($"{request.SortField} {sortOrder}");
+            }
+
+            var totalCount = await queryable.CountAsync(cancellationToken);
+
+            var payments = await queryable
                 .Skip((request.PageNumber - 1) * request.PageSize)
                 .Take(request.PageSize)
                 .ToListAsync(cancellationToken);
 
-            return new PaginatedResult<PaymentTransaction>(items, totalCount, request.PageNumber, request.PageSize);
+            return new PaginatedResult<PaymentTransaction>(payments, totalCount, request.PageNumber, request.PageSize);
         }
     }
 }
+

@@ -5,22 +5,25 @@ import { CommonModule } from '@angular/common';
 import { AuthService } from '../../core/api/auth.service';
 import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule]
+  imports: [ReactiveFormsModule, CommonModule, TranslateModule]
 })
 export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
   message: string = '';
+  messageType: 'success' | 'error' | null = null;
 
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private translate: TranslateService
   ) { }
 
   ngOnInit(): void {
@@ -36,12 +39,14 @@ export class LoginComponent implements OnInit {
 
       this.authService.login(username, password).subscribe({
         next: (response) => {
-          this.message = 'Login successful!';
+          this.message = 'LOGIN.SUCCESS_MESSAGE';
+          this.messageType = 'success';
           console.log('Login successful', response);
           this.router.navigate(['/admin/dashboard']);
         },
         error: (error) => {
-          this.message = 'Login failed: ' + (error.error?.message || error.message);
+          this.message = 'LOGIN.FAILED_MESSAGE';
+          this.messageType = 'error';
           console.error('Login failed', error);
         }
       });
@@ -53,12 +58,14 @@ export class LoginComponent implements OnInit {
       const { username, password } = this.loginForm.value;
       this.authService.register(username, password).subscribe({
         next: (response) => {
-          this.message = 'User registration successful!';
+          this.message = 'LOGIN.REGISTER_SUCCESS_MESSAGE';
+          this.messageType = 'success';
           console.log('User registration successful', response);
           this.loginForm.reset();
         },
         error: (error) => {
-          this.message = 'User registration failed: ' + (error.error?.message || error.message);
+          this.message = 'LOGIN.REGISTER_FAILED_MESSAGE';
+          this.messageType = 'error';
           console.error('User registration failed', error);
         }
       });

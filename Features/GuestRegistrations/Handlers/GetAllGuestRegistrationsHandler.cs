@@ -1,11 +1,12 @@
 using MediatR;
-using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using CQRSExample.Data;
 using CQRSExample.Models;
-using Microsoft.EntityFrameworkCore;
 using CQRSExample.Features.GuestRegistrations.Queries;
+using Microsoft.EntityFrameworkCore;
+using System.Linq.Dynamic.Core;
 
 namespace CQRSExample.Features.GuestRegistrations.Handlers
 {
@@ -20,16 +21,33 @@ namespace CQRSExample.Features.GuestRegistrations.Handlers
 
         public async Task<PaginatedResult<GuestRegistration>> Handle(GetAllGuestRegistrationsQuery request, CancellationToken cancellationToken)
         {
-            var query = _context.GuestRegistrations.AsQueryable();
+            var queryable = _context.GuestRegistrations.AsQueryable();
 
-            var totalCount = await query.CountAsync(cancellationToken);
+            if (!string.IsNullOrEmpty(request.SearchTerm))
+            {
+                var searchTerm = request.SearchTerm.ToLower();
+                queryable = queryable.Where(g =>
+                    g.Name.ToLower().Contains(searchTerm) ||
+                    g.PassportNumber.ToLower().Contains(searchTerm) ||
+                    g.Nationality.ToLower().Contains(searchTerm) ||
+                    g.Nrc.ToLower().Contains(searchTerm)
+                );
+            }
 
-            var items = await query
+            if (!string.IsNullOrEmpty(request.SortField))
+            {
+                var sortOrder = request.SortOrder ?? "asc";
+                queryable = queryable.OrderBy($"{request.SortField} {sortOrder}");
+            }
+
+            var totalCount = await queryable.CountAsync(cancellationToken);
+
+            var registrations = await queryable
                 .Skip((request.PageNumber - 1) * request.PageSize)
                 .Take(request.PageSize)
                 .ToListAsync(cancellationToken);
 
-            return new PaginatedResult<GuestRegistration>(items, totalCount, request.PageNumber, request.PageSize);
+            return new PaginatedResult<GuestRegistration>(registrations, totalCount, request.PageNumber, request.PageSize);
         }
     }
 }

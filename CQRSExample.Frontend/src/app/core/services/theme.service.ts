@@ -29,6 +29,16 @@ export class ThemeService {
     } else {
       this.setLightMode();
     }
+    // Ensure the class is applied immediately on load
+    this.applyThemeToDocument();
+  }
+
+  private applyThemeToDocument(): void {
+    if (this.isDarkMode()) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
   }
 
   private setDarkMode(): void {

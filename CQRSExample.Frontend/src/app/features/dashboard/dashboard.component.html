@@ -1,6 +1,37 @@
-<div class="container mx-auto p-4 bg-white dark:bg-gray-900 text-gray-900 dark:text-white rounded-lg shadow">
+<div class="container mx-auto p-4 bg-primary-50 dark:bg-gray-900 text-gray-900 dark:text-white ">
   <h1 class="text-2xl font-bold mb-4">Dashboard</h1>
-  <div *ngIf="stats" class="grid grid-cols-1 md:grid-cols-3 gap-4">
+
+  <div *ngIf="!stats" class="text-center">
+    <p>Loading stats...</p>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow">
+      <apx-chart
+        [series]="barChartOptions.series"
+        [chart]="barChartOptions.chart"
+        [xaxis]="barChartOptions.xaxis"
+        [dataLabels]="barChartOptions.dataLabels"
+        [title]="barChartOptions.title"
+        [plotOptions]="barChartOptions.plotOptions"
+         *ngIf="showChart"
+      ></apx-chart>
+    </div>
+    <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow">
+      <apx-chart
+       *ngIf="showChart"
+        [series]="areaChartOptions.series"
+        [chart]="areaChartOptions.chart"
+        [xaxis]="areaChartOptions.xaxis"
+        [yaxis]="areaChartOptions.yaxis"
+        [title]="areaChartOptions.title"
+        [stroke]="areaChartOptions.stroke"
+        [fill]="areaChartOptions.fill"
+      ></apx-chart>
+    </div>
+  </div>
+
+  <div *ngIf="stats" class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8 mt-4">
     <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow">
       <h2 class="text-xl font-semibold mb-2 text-gray-700 dark:text-gray-200">Total Guests</h2>
       <p class="text-3xl font-bold text-primary-600">{{ stats.totalGuests }}</p>
@@ -14,7 +45,5 @@
       <p class="text-3xl font-bold text-primary-600">{{ stats.totalRegistrations }}</p>
     </div>
   </div>
-  <div *ngIf="!stats" class="text-center">
-    <p>Loading stats...</p>
-  </div>
+
 </div>

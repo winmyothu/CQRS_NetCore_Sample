@@ -20,6 +20,10 @@ module.exports = {
           '800': '#166534',
           '900': '#14532d',
         },
+        'main-panel-bg': {
+          light: '#F3F4F6',
+          dark: '#1F2937',
+        }
       },
     },
   },

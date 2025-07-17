@@ -3,8 +3,13 @@ using CQRSExample.Models;
 
 namespace CQRSExample.Features.GuestRegistrations.Queries
 {
-    /// <summary>
-    /// Query to get a guest registration by its ID.
-    /// </summary>
-    public record GetGuestRegistrationByIdQuery(int Id) : IRequest<GuestRegistration>;
+    public class GetGuestRegistrationByIdQuery : IRequest<GuestRegistration>
+    {
+        public int Id { get; set; }
+
+        public GetGuestRegistrationByIdQuery(int id)
+        {
+            Id = id;
+        }
+    }
 }

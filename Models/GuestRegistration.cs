@@ -21,5 +21,6 @@ namespace CQRSExample.Models
         /// Stores the URLs of the attached files, serialized as a JSON string.
         /// </summary>
         public required string AttachedFileUrls { get; set; }
+        public DateTime RegistrationDate { get; set; } = DateTime.UtcNow;
     }
 }

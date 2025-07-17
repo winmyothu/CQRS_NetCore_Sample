@@ -1,0 +1,71 @@
+{
+  "APP": {
+    "TITLE_FULL": "CQRS Example",
+    "TITLE_SHORT": "CQRS"
+  },
+  "SETTINGS": {
+    "TITLE": "Settings",
+    "LANGUAGE": "Language",
+    "DARK_MODE": "Dark Mode"
+  },
+  "SIDEBAR": {
+    "DASHBOARD": "Dashboard",
+    "GUEST_LIST": "Guest List",
+    "TRANSACTIONS": "Transactions",
+    "USER_INFO": "User Info",
+    "SETTINGS": "Settings"
+  },
+  "PAGE_TITLE": {
+    "DASHBOARD": "Dashboard",
+    "GUEST_LIST": "Guest List",
+    "TRANSACTIONS": "Transactions",
+    "USER_INFO": "User Info",
+    "SETTINGS": "Settings",
+    "LOGIN": "Login",
+    "GUEST_REGISTRATION": "Guest Registration"
+  },
+  "USER_INFO": {
+    "TITLE": "User Information",
+    "NAME": "Name",
+    "EMAIL": "Email",
+    "CHANGE_PASSWORD": "Change Password",
+    "CHANGE_PASSWORD_BUTTON": "Change Password"
+  },
+  "LOGIN": {
+    "TITLE": "Admin Login",
+    "USERNAME": "Username",
+    "PASSWORD": "Password",
+    "LOGIN_BUTTON": "Login",
+    "REGISTER_BUTTON": "Register",
+    "SUCCESS_MESSAGE": "Login successful!",
+    "FAILED_MESSAGE": "Login failed.",
+    "REGISTER_SUCCESS_MESSAGE": "User registration successful!",
+    "REGISTER_FAILED_MESSAGE": "User registration failed."
+  },
+  "GUEST_REGISTRATION": {
+    "AUTHENTICATION_TITLE": "Authentication",
+    "USERNAME": "Username",
+    "PASSWORD": "Password",
+    "LOGIN_BUTTON": "Login",
+    "REGISTER_BUTTON": "Register User",
+    "LOGOUT_BUTTON": "Logout",
+    "FORM_TITLE": "Guest Registration Form",
+    "NAME": "Name",
+    "DATE_OF_BIRTH": "Date of Birth",
+    "PASSPORT_NUMBER": "Passport Number",
+    "NATIONALITY": "Nationality",
+    "NRC_OPTIONAL": "NRC (Optional)",
+    "CURRENT_ADDRESS": "Current Address",
+    "PERMANENT_ADDRESS_OPTIONAL": "Permanent Address (Optional)",
+    "ATTACH_FILES": "Attach Files",
+    "SUBMIT_BUTTON": "Submit",
+    "SUCCESS_MESSAGE": "Registration successful!",
+    "FAILED_MESSAGE": "Registration failed.",
+    "LOGIN_SUCCESS_MESSAGE": "Login successful!",
+    "LOGIN_FAILED_MESSAGE": "Login failed.",
+    "REGISTER_SUCCESS_MESSAGE": "User registration successful!",
+    "REGISTER_FAILED_MESSAGE": "User registration failed.",
+    "LOGOUT_SUCCESS_MESSAGE": "Logout successful!",
+    "LOGOUT_FAILED_MESSAGE": "Logout failed."
+  }
+}

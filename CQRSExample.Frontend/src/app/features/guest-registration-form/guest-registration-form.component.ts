@@ -3,29 +3,32 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angula
 import { GuestRegistrationService } from '../../core/api/guest-registration.service';
 import { AuthService } from '../../core/api/auth.service';
 import { CommonModule } from '@angular/common';
-import { HttpClient } from '@angular/common/http'; // Import HttpClient
-import { Observable, of } from 'rxjs'; // Import Observable and of
-import { catchError, map } from 'rxjs/operators'; // Import operators
+import { HttpClient } from '@angular/common/http';
+import { Observable, of } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-guest-registration-form',
   templateUrl: './guest-registration-form.component.html',
   styleUrls: ['./guest-registration-form.component.css'],
-  standalone: true, // Add standalone: true
-  imports: [ReactiveFormsModule, CommonModule],
+  standalone: true,
+  imports: [ReactiveFormsModule, CommonModule, TranslateModule],
 })
 export class GuestRegistrationFormComponent implements OnInit {
   registrationForm!: FormGroup;
-  loginForm!: FormGroup; // New login form
+  loginForm!: FormGroup;
   selectedFiles: File[] = [];
   message: string = '';
-  isLoggedIn: boolean = false; // To track login status
+  messageType: 'success' | 'error' | null = null;
+  isLoggedIn: boolean = false;
 
   constructor(
     private fb: FormBuilder,
     private guestRegistrationService: GuestRegistrationService,
     private authService: AuthService,
-    private http: HttpClient // Inject HttpClient
+    private http: HttpClient,
+    private translate: TranslateService
   ) { }
 
   ngOnInit(): void {
@@ -69,13 +72,15 @@ export class GuestRegistrationFormComponent implements OnInit {
 
       this.guestRegistrationService.createRegistration(formData).subscribe({
         next: (response) => {
-          this.message = 'Registration successful!';
+          this.message = 'GUEST_REGISTRATION.SUCCESS_MESSAGE';
+          this.messageType = 'success';
           console.log('Registration successful', response);
           this.registrationForm.reset();
           this.selectedFiles = [];
         },
         error: (error) => {
-          this.message = 'Registration failed: ' + (error.error || error.message);
+          this.message = 'GUEST_REGISTRATION.FAILED_MESSAGE';
+          this.messageType = 'error';
           console.error('Registration failed', error);
         }
       });
@@ -87,13 +92,15 @@ export class GuestRegistrationFormComponent implements OnInit {
       const { username, password } = this.loginForm.value;
       this.authService.login(username, password).subscribe({
         next: (response) => {
-          this.message = 'Login successful!';
+          this.message = 'GUEST_REGISTRATION.LOGIN_SUCCESS_MESSAGE';
+          this.messageType = 'success';
           this.isLoggedIn = true;
           console.log('Login successful', response);
           this.loginForm.reset();
         },
         error: (error) => {
-          this.message = 'Login failed: ' + (error.error || error.message);
+          this.message = 'GUEST_REGISTRATION.LOGIN_FAILED_MESSAGE';
+          this.messageType = 'error';
           console.error('Login failed', error);
         }
       });
@@ -101,16 +108,18 @@ export class GuestRegistrationFormComponent implements OnInit {
   }
 
   onRegisterUser(): void {
-    if (this.loginForm.valid) { // Reusing loginForm for register user for simplicity
+    if (this.loginForm.valid) {
       const { username, password } = this.loginForm.value;
       this.authService.register(username, password).subscribe({
         next: (response) => {
-          this.message = 'User registration successful!';
+          this.message = 'GUEST_REGISTRATION.REGISTER_SUCCESS_MESSAGE';
+          this.messageType = 'success';
           console.log('User registration successful', response);
           this.loginForm.reset();
         },
         error: (error) => {
-          this.message = 'User registration failed: ' + (error.error || error.message);
+          this.message = 'GUEST_REGISTRATION.REGISTER_FAILED_MESSAGE';
+          this.messageType = 'error';
           console.error('User registration failed', error);
         }
       });
@@ -120,12 +129,14 @@ export class GuestRegistrationFormComponent implements OnInit {
   onLogout(): void {
     this.authService.logout().subscribe({
       next: () => {
-        this.message = 'Logout successful!';
+        this.message = 'GUEST_REGISTRATION.LOGOUT_SUCCESS_MESSAGE';
+        this.messageType = 'success';
         this.isLoggedIn = false;
         console.log('Logout successful');
       },
       error: (error) => {
-        this.message = 'Logout failed: ' + (error.error || error.message);
+        this.message = 'GUEST_REGISTRATION.LOGOUT_FAILED_MESSAGE';
+        this.messageType = 'error';
         console.error('Logout failed', error);
       }
     });

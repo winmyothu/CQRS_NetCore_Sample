@@ -22,17 +22,17 @@ namespace CQRSExample.Controllers
         }
 
         [HttpGet("registrations")]
-        public async Task<ActionResult<PaginatedResult<GuestRegistration>>> GetAllRegistrations([FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 10)
+        public async Task<ActionResult<PaginatedResult<GuestRegistration>>> GetAllRegistrations([FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 10, [FromQuery] string? searchTerm = null, [FromQuery] string? sortField = null, [FromQuery] string? sortOrder = null)
         {
-            var query = new GetAllGuestRegistrationsQuery(pageNumber, pageSize);
+            var query = new GetAllGuestRegistrationsQuery(pageNumber, pageSize, searchTerm, sortField, sortOrder);
             var registrations = await _mediator.Send(query);
             return Ok(registrations);
         }
 
         [HttpGet("payments")]
-        public async Task<ActionResult<PaginatedResult<PaymentTransaction>>> GetAllPaymentTransactions([FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 10)
+        public async Task<ActionResult<PaginatedResult<PaymentTransaction>>> GetAllPaymentTransactions([FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 10, [FromQuery] string? searchTerm = null, [FromQuery] string? sortField = null, [FromQuery] string? sortOrder = null)
         {
-            var query = new GetAllPaymentTransactionsQuery(pageNumber, pageSize);
+            var query = new GetAllPaymentTransactionsQuery(pageNumber, pageSize, searchTerm, sortField, sortOrder);
             var payments = await _mediator.Send(query);
             return Ok(payments);
         }

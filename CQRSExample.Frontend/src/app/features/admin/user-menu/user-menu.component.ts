@@ -1,11 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener, ElementRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { UserService } from '../../../core/services/user.service';
-import { User } from '../../../core/models/user.model';
 import { AuthService } from '../../../core/api/auth.service';
 import { Router } from '@angular/router';
-
 import { RouterModule } from '@angular/router';
+import { JwtHelperService } from '@auth0/angular-jwt'; // Import JwtHelperService
 
 @Component({
   selector: 'app-user-menu',
@@ -15,19 +13,29 @@ import { RouterModule } from '@angular/router';
   imports: [CommonModule, RouterModule]
 })
 export class UserMenuComponent implements OnInit {
-  user: User | null = null;
+  username: string | null = null;
   isMenuOpen = false;
 
   constructor(
-    private userService: UserService,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private elementRef: ElementRef,
+    private jwtHelper: JwtHelperService // Inject JwtHelperService
   ) { }
 
   ngOnInit(): void {
-    this.userService.getCurrentUser().subscribe(user => {
-      this.user = user;
-    });
+    const token = localStorage.getItem('accessToken');
+    if (token) {
+      const decodedToken = this.jwtHelper.decodeToken(token);
+      this.username = decodedToken?.['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name'] || decodedToken?.unique_name || decodedToken?.name || null;
+    }
+  }
+
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: MouseEvent): void {
+    if (!this.elementRef.nativeElement.contains(event.target)) {
+      this.isMenuOpen = false;
+    }
   }
 
   toggleMenu(): void {

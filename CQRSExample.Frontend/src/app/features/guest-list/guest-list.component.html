@@ -1,98 +1,86 @@
-<div class="p-4">
-  <h2 class="text-2xl font-bold mb-4">Guest List</h2>
-
-  <!-- Search and Filter -->
-  <div class="mb-4 flex items-center space-x-4">
-    <input type="text" placeholder="Search guests..." class="p-2 border border-gray-300 rounded-md w-1/3">
-    <button class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">Search</button>
+<div class="bg-white dark:bg-gray-800 shadow-md rounded-lg p-6">
+  <div class="flex justify-between items-center mb-4">
+    <h2 class="text-2xl font-bold text-gray-800 dark:text-white">Guest List</h2>
+    <div class="relative">
+      <input
+        type="text"
+        (input)="onSearch($event)"
+        placeholder="Search guests..."
+        class="p-2 pl-4 pr-10 border border-gray-300 dark:border-gray-600 rounded-full w-64 bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-primary-500 dark:focus:ring-primary-400"
+      >
+      <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+        <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+      </div>
+    </div>
   </div>
 
   <!-- Table -->
-  <div class="overflow-x-auto bg-white dark:bg-gray-800 rounded-lg shadow">
-    <table class="min-w-full leading-normal">
-      <thead>
+  <div class="overflow-x-auto">
+    <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+      <thead class="bg-gray-50 dark:bg-gray-700">
         <tr>
-          <th class="px-5 py-3 border-b-2 border-gray-200 dark:border-gray-700 bg-gray-100 dark:bg-gray-700 text-left text-xs font-semibold text-gray-600 dark:text-gray-300 uppercase tracking-wider">
-            ID <span class="cursor-pointer">&#x2195;</span>
+          <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider cursor-pointer" (click)="onSort('id')">
+            ID
+            <span *ngIf="sortField === 'id'">{{ sortOrder === 'asc' ? '▲' : '▼' }}</span>
           </th>
-          <th class="px-5 py-3 border-b-2 border-gray-200 dark:border-gray-700 bg-gray-100 dark:bg-gray-700 text-left text-xs font-semibold text-gray-600 dark:text-gray-300 uppercase tracking-wider">
-            Name <span class="cursor-pointer">&#x2195;</span>
+          <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider cursor-pointer" (click)="onSort('name')">
+            Name
+            <span *ngIf="sortField === 'name'">{{ sortOrder === 'asc' ? '▲' : '▼' }}</span>
           </th>
-          <th class="px-5 py-3 border-b-2 border-gray-200 dark:border-gray-700 bg-gray-100 dark:bg-gray-700 text-left text-xs font-semibold text-gray-600 dark:text-gray-300 uppercase tracking-wider">
-            Date of Birth <span class="cursor-pointer">&#x2195;</span>
+          <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider cursor-pointer" (click)="onSort('dateOfBirth')">
+            Date of Birth
+            <span *ngIf="sortField === 'dateOfBirth'">{{ sortOrder === 'asc' ? '▲' : '▼' }}</span>
           </th>
-          <th class="px-5 py-3 border-b-2 border-gray-200 dark:border-gray-700 bg-gray-100 dark:bg-gray-700 text-left text-xs font-semibold text-gray-600 dark:text-gray-300 uppercase tracking-wider">
-            Passport Number <span class="cursor-pointer">&#x2195;</span>
+          <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider cursor-pointer" (click)="onSort('passportNumber')">
+            Passport Number
+            <span *ngIf="sortField === 'passportNumber'">{{ sortOrder === 'asc' ? '▲' : '▼' }}</span>
           </th>
-          <th class="px-5 py-3 border-b-2 border-gray-200 dark:border-gray-700 bg-gray-100 dark:bg-gray-700 text-left text-xs font-semibold text-gray-600 dark:text-gray-300 uppercase tracking-wider">
-            Nationality <span class="cursor-pointer">&#x2195;</span>
+          <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider cursor-pointer" (click)="onSort('nationality')">
+            Nationality
+            <span *ngIf="sortField === 'nationality'">{{ sortOrder === 'asc' ? '▲' : '▼' }}</span>
           </th>
-          <th class="px-5 py-3 border-b-2 border-gray-200 dark:border-gray-700 bg-gray-100 dark:bg-gray-700 text-left text-xs font-semibold text-gray-600 dark:text-gray-300 uppercase tracking-wider">
-            NRC <span class="cursor-pointer">&#x2195;</span>
+          <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider cursor-pointer" (click)="onSort('nrc')">
+            NRC
+            <span *ngIf="sortField === 'nrc'">{{ sortOrder === 'asc' ? '▲' : '▼' }}</span>
           </th>
-          <th class="px-5 py-3 border-b-2 border-gray-200 dark:border-gray-700 bg-gray-100 dark:bg-gray-700 text-left text-xs font-semibold text-gray-600 dark:text-gray-300 uppercase tracking-wider">
-            Current Address <span class="cursor-pointer">&#x2195;</span>
-          </th>
-          <th class="px-5 py-3 border-b-2 border-gray-200 dark:border-gray-700 bg-gray-100 dark:bg-gray-700 text-left text-xs font-semibold text-gray-600 dark:text-gray-300 uppercase tracking-wider">
-            Permanent Address <span class="cursor-pointer">&#x2195;</span>
-          </th>
-          <th class="px-5 py-3 border-b-2 border-gray-200 dark:border-gray-700 bg-gray-100 dark:bg-gray-700"></th>
+          <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Current Address</th>
+          <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Permanent Address</th>
         </tr>
       </thead>
-      <tbody>
-        <tr *ngFor="let guest of guests">
-          <td class="px-5 py-5 border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-sm">
-            <p class="text-gray-900 dark:text-white whitespace-no-wrap">{{ guest.id }}</p>
-          </td>
-          <td class="px-5 py-5 border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-sm">
-            <p class="text-gray-900 dark:text-white whitespace-no-wrap">{{ guest.name }}</p>
-          </td>
-          <td class="px-5 py-5 border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-sm">
-            <p class="text-gray-900 dark:text-white whitespace-no-wrap">{{ guest.dateOfBirth | date: 'medium' }}</p>
-          </td>
-          <td class="px-5 py-5 border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-sm">
-            <p class="text-gray-900 dark:text-white whitespace-no-wrap">{{ guest.passportNumber }}</p>
-          </td>
-          <td class="px-5 py-5 border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-sm">
-            <p class="text-gray-900 dark:text-white whitespace-no-wrap">{{ guest.nationality }}</p>
-          </td>
-          <td class="px-5 py-5 border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-sm">
-            <p class="text-gray-900 dark:text-white whitespace-no-wrap">{{ guest.nrc }}</p>
-          </td>
-          <td class="px-5 py-5 border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-sm">
-            <p class="text-gray-900 dark:text-white whitespace-no-wrap">{{ guest.currentAddress }}</p>
-          </td>
-          <td class="px-5 py-5 border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-sm">
-            <p class="text-gray-900 dark:text-white whitespace-no-wrap">{{ guest.permanentAddress }}</p>
-          </td>
-          <td class="px-5 py-5 border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-sm text-right">
-            <button class="text-indigo-600 hover:text-indigo-900 p-1 rounded-full hover:bg-indigo-100"><i class="fas fa-edit"></i></button>
-            <button class="text-red-600 hover:text-red-900 ml-4 p-1 rounded-full hover:bg-red-100"><i class="fas fa-trash-alt"></i></button>
-          </td>
+      <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+        <tr *ngFor="let guest of guests" class="hover:bg-gray-50 dark:hover:bg-gray-600">
+          <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">{{ guest.id }}</td>
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">{{ guest.name }}</td>
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">{{ guest.dateOfBirth | date: 'mediumDate' }}</td>
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">{{ guest.passportNumber }}</td>
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">{{ guest.nationality }}</td>
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">{{ guest.nrc }}</td>
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">{{ guest.currentAddress }}</td>
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">{{ guest.permanentAddress }}</td>
         </tr>
       </tbody>
     </table>
   </div>
 
   <!-- Pagination -->
-  <div class="px-5 py-5 bg-white dark:bg-gray-800 border-t dark:border-gray-700 flex flex-col xs:flex-row items-center xs:justify-between">
-    <span class="text-xs xs:text-sm text-gray-900 dark:text-white">
-        Showing {{ (pageNumber - 1) * pageSize + 1 }} to {{ getMin(pageNumber * pageSize, totalCount) }} of {{ totalCount }} Entries
-    </span>
-    <div class="inline-flex mt-2 xs:mt-0">
-      <button class="text-sm bg-gray-300 dark:bg-gray-700 hover:bg-gray-400 dark:hover:bg-gray-600 text-gray-800 dark:text-white font-semibold py-2 px-4 rounded-l"
-              [disabled]="pageNumber === 1" (click)="onPageChange(pageNumber - 1)">
+  <div class="flex justify-between items-center mt-4">
+    <div class="flex items-center space-x-2">
+      <span class="text-sm text-gray-700 dark:text-gray-400">Rows per page:</span>
+      <select (change)="onPageSizeChange($event)" [value]="pageSize" class="p-1 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-200">
+        <option *ngFor="let size of pageSizes" [value]="size">{{ size }}</option>
+      </select>
+      <span class="text-sm text-gray-700 dark:text-gray-400">
+        Showing {{ (pageNumber - 1) * pageSize + 1 }} to {{ getMin(pageNumber * pageSize, totalCount) }} of {{ totalCount }} results
+      </span>
+    </div>
+    <div class="inline-flex rounded-md shadow-sm -space-x-px">
+      <button (click)="onPageChange(pageNumber - 1)" [disabled]="pageNumber === 1" class="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 disabled:opacity-50">
         Prev
       </button>
-      <ng-container *ngFor="let page of pages">
-        <button class="text-sm bg-gray-300 dark:bg-gray-700 hover:bg-gray-400 dark:hover:bg-gray-600 text-gray-800 dark:text-white font-semibold py-2 px-4"
-                [class.bg-blue-500]="pageNumber === page" [class.text-white]="pageNumber === page"
-                (click)="onPageChange(page)">
-          {{ page }}
-        </button>
-      </ng-container>
-      <button class="text-sm bg-gray-300 dark:bg-gray-700 hover:bg-gray-400 dark:hover:bg-gray-600 text-gray-800 dark:text-white font-semibold py-2 px-4 rounded-r"
-              [disabled]="pageNumber === totalPages" (click)="onPageChange(pageNumber + 1)">
+      <button *ngFor="let page of pages" (click)="onPageChange(page)" [class.bg-primary-500]="pageNumber === page" [class.text-primary]="pageNumber === page" class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50">
+        {{ page }}
+      </button>
+      <button (click)="onPageChange(pageNumber + 1)" [disabled]="pageNumber === totalPages" class="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 disabled:opacity-50">
         Next
       </button>
     </div>

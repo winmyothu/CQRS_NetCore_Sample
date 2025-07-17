@@ -1,0 +1,71 @@
+{
+  "APP": {
+    "TITLE_FULL": "CQRS ဥပမာ",
+    "TITLE_SHORT": "CQRS"
+  },
+  "SETTINGS": {
+    "TITLE": "ချိန်ညှိမှုများ",
+    "LANGUAGE": "ဘာသာစကား",
+    "DARK_MODE": "အမှောင်မုဒ်"
+  },
+  "SIDEBAR": {
+    "DASHBOARD": "ဒက်ရှ်ဘုတ်",
+    "GUEST_LIST": "ဧည့်သည်စာရင်း",
+    "TRANSACTIONS": "ငွေပေးငွေယူများ",
+    "USER_INFO": "အသုံးပြုသူအချက်အလက်",
+    "SETTINGS": "ချိန်ညှိမှုများ"
+  },
+  "PAGE_TITLE": {
+    "DASHBOARD": "ဒက်ရှ်ဘုတ်",
+    "GUEST_LIST": "ဧည့်သည်စာရင်း",
+    "TRANSACTIONS": "ငွေပေးငွေယူများ",
+    "USER_INFO": "အသုံးပြုသူအချက်အလက်",
+    "SETTINGS": "ချိန်ညှိမှုများ",
+    "LOGIN": "ဝင်ရောက်ရန်",
+    "GUEST_REGISTRATION": "ဧည့်သည်မှတ်ပုံတင်ခြင်း"
+  },
+  "USER_INFO": {
+    "TITLE": "အသုံးပြုသူအချက်အလက်",
+    "NAME": "အမည်",
+    "EMAIL": "အီးမေးလ်",
+    "CHANGE_PASSWORD": "စကားဝှက်ပြောင်းရန်",
+    "CHANGE_PASSWORD_BUTTON": "စကားဝှက်ပြောင်းရန်"
+  },
+  "LOGIN": {
+    "TITLE": "အက်ဒမင်ဝင်ရောက်ရန်",
+    "USERNAME": "အသုံးပြုသူအမည်",
+    "PASSWORD": "စကားဝှက်",
+    "LOGIN_BUTTON": "ဝင်ရောက်ရန်",
+    "REGISTER_BUTTON": "မှတ်ပုံတင်ရန်",
+    "SUCCESS_MESSAGE": "အောင်မြင်စွာဝင်ရောက်ပြီးပါပြီ။",
+    "FAILED_MESSAGE": "ဝင်ရောက်မှုမအောင်မြင်ပါ။",
+    "REGISTER_SUCCESS_MESSAGE": "အသုံးပြုသူမှတ်ပုံတင်ခြင်းအောင်မြင်ပါသည်။",
+    "REGISTER_FAILED_MESSAGE": "အသုံးပြုသူမှတ်ပုံတင်ခြင်းမအောင်မြင်ပါ။"
+  },
+  "GUEST_REGISTRATION": {
+    "AUTHENTICATION_TITLE": "စစ်မှန်ကြောင်းအထောက်အထားပြခြင်း",
+    "USERNAME": "အသုံးပြုသူအမည်",
+    "PASSWORD": "စကားဝှက်",
+    "LOGIN_BUTTON": "ဝင်ရောက်ရန်",
+    "REGISTER_BUTTON": "အသုံးပြုသူမှတ်ပုံတင်ရန်",
+    "LOGOUT_BUTTON": "ထွက်ရန်",
+    "FORM_TITLE": "ဧည့်သည်မှတ်ပုံတင်ခြင်းပုံစံ",
+    "NAME": "အမည်",
+    "DATE_OF_BIRTH": "မွေးသက္ကရာဇ်",
+    "PASSPORT_NUMBER": "နိုင်ငံကူးလက်မှတ်နံပါတ်",
+    "NATIONALITY": "နိုင်ငံသား",
+    "NRC_OPTIONAL": "မှတ်ပုံတင်နံပါတ် (ရွေးချယ်နိုင်သည်)",
+    "CURRENT_ADDRESS": "လက်ရှိနေရပ်လိပ်စာ",
+    "PERMANENT_ADDRESS_OPTIONAL": "အမြဲတမ်းနေရပ်လိပ်စာ (ရွေးချယ်နိုင်သည်)",
+    "ATTACH_FILES": "ဖိုင်များပူးတွဲပါ",
+    "SUBMIT_BUTTON": "တင်ပြရန်",
+    "SUCCESS_MESSAGE": "မှတ်ပုံတင်ခြင်းအောင်မြင်ပါသည်။",
+    "FAILED_MESSAGE": "မှတ်ပုံတင်ခြင်းမအောင်မြင်ပါ။",
+    "LOGIN_SUCCESS_MESSAGE": "ဝင်ရောက်ခြင်းအောင်မြင်ပါသည်။",
+    "LOGIN_FAILED_MESSAGE": "ဝင်ရောက်ခြင်းမအောင်မြင်ပါ။",
+    "REGISTER_SUCCESS_MESSAGE": "အသုံးပြုသူမှတ်ပုံတင်ခြင်းအောင်မြင်ပါသည်။",
+    "REGISTER_FAILED_MESSAGE": "အသုံးပြုသူမှတ်ပုံတင်ခြင်းမအောင်မြင်ပါ။",
+    "LOGOUT_SUCCESS_MESSAGE": "ထွက်ခြင်းအောင်မြင်ပါသည်။",
+    "LOGOUT_FAILED_MESSAGE": "ထွက်ခြင်းမအောင်မြင်ပါ။"
+  }
+}
