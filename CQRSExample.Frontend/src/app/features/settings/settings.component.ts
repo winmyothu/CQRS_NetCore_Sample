@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { CommonModule } from '@angular/common';
+import { ThemeService } from '../../core/services/theme.service';
 
 @Component({
   selector: 'app-settings',
@@ -12,11 +13,10 @@ import { CommonModule } from '@angular/common';
 export class SettingsComponent implements OnInit {
   isDarkMode: boolean = false;
 
-  constructor(public translate: TranslateService) { }
+  constructor(public translate: TranslateService, private themeService: ThemeService) { }
 
   ngOnInit(): void {
-    this.isDarkMode = localStorage.getItem('theme') === 'dark';
-    this.applyTheme();
+    this.isDarkMode = this.themeService.isDarkMode();
   }
 
   switchLanguage(language: string) { // Change parameter back to string
@@ -24,17 +24,7 @@ export class SettingsComponent implements OnInit {
   }
 
   toggleDarkMode() {
-    this.isDarkMode = !this.isDarkMode;
-    this.applyTheme();
-  }
-
-  private applyTheme() {
-    if (this.isDarkMode) {
-      document.documentElement.classList.add('dark');
-      localStorage.setItem('theme', 'dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-      localStorage.setItem('theme', 'light');
-    }
+    this.themeService.toggleTheme();
+    this.isDarkMode = this.themeService.isDarkMode();
   }
 }

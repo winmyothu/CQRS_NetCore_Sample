@@ -19,7 +19,7 @@ namespace CQRSExample.Features.Auth.Handlers
 
         public async Task<bool> Handle(RevokeRefreshTokenCommand request, CancellationToken cancellationToken)
         {
-            var refreshToken = await _context.RefreshTokens.SingleOrDefaultAsync(rt => rt.Token == request.RefreshToken, cancellationToken);
+            var refreshToken = await _context.RefreshTokens.Where(rt => rt.Token != null && rt.Token == request.RefreshToken).SingleOrDefaultAsync(cancellationToken);
 
             if (refreshToken == null)
             {

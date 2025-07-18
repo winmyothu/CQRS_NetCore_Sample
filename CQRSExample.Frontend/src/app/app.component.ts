@@ -3,6 +3,7 @@ import { Router, RouterOutlet } from '@angular/router';
 import { AuthService } from './core/api/auth.service';
 import { CommonModule } from '@angular/common';
 import { TranslateService } from '@ngx-translate/core';
+import { ThemeService } from './core/services/theme.service';
 
 @Component({
   selector: 'app-root',
@@ -17,10 +18,12 @@ export class AppComponent {
   constructor(
     public authService: AuthService,
     private router: Router,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private themeService: ThemeService
   ) {
     this.translate.setDefaultLang('en');
     this.translate.use('en');
+    this.themeService.isDarkMode();
   }
 
   logout(): void {
