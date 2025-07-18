@@ -19,7 +19,8 @@ namespace CQRSExample.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateGuestRegistration([FromBody] CreateGuestRegistrationCommand command)
+        [Consumes("multipart/form-data")]
+        public async Task<IActionResult> CreateGuestRegistration([FromForm] CreateGuestRegistrationCommand command)
         {
             var result = await _mediator.Send(command);
             return Ok(result);
