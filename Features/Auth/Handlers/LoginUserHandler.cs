@@ -28,7 +28,7 @@ namespace CQRSExample.Features.Auth.Handlers
 
         public async Task<AuthResult> Handle(LoginUserQuery request, CancellationToken cancellationToken)
         {
-            var user = await _context.Users.Include(u => u.RefreshTokens).SingleOrDefaultAsync(u => u.Username == request.Username, cancellationToken);
+            var user = await _context.Users.Include(u => u.RefreshTokens).SingleOrDefaultAsync(u => u.Email == request.Email, cancellationToken);
 
             if (user == null || !BCrypt.Net.BCrypt.Verify(request.Password, user.PasswordHash))
             {

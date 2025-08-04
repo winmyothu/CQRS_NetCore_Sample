@@ -3,5 +3,5 @@ using CQRSExample.Features.Auth.Models;
 
 namespace CQRSExample.Features.Auth.Queries
 {
-    public record LoginUserQuery(string Username, string Password) : IRequest<AuthResult>;
+    public record LoginUserQuery(string Email, string Password) : IRequest<AuthResult>;
 }

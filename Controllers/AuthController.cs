@@ -1,12 +1,13 @@
-using Microsoft.AspNetCore.Mvc;
-using MediatR;
+using System;
 using System.Threading.Tasks;
 using CQRSExample.Features.Auth.Commands;
-using CQRSExample.Features.Auth.Queries;
 using CQRSExample.Features.Auth.Models;
+using CQRSExample.Features.Auth.Queries;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
-using System;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 
 namespace CQRSExample.Controllers
 {
@@ -19,17 +20,6 @@ namespace CQRSExample.Controllers
         public AuthController(IMediator mediator)
         {
             _mediator = mediator;
-        }
-
-        [HttpPost("register")]
-        public async Task<IActionResult> Register([FromBody] RegisterUserCommand command)
-        {
-            var result = await _mediator.Send(command);
-            if (!result.Succeeded)
-            {
-                return BadRequest(result.Errors);
-            }
-            return Ok(new { Message = "Registration successful" });
         }
 
         [HttpPost("login")]
@@ -47,7 +37,6 @@ namespace CQRSExample.Controllers
                 {
                     HttpOnly = true,
                     Secure = true, // Set to true in production for HTTPS
-                   // SameSite = SameSiteMode.Strict,
                     SameSite = SameSiteMode.None, // For cross-site cookies
                     Expires = DateTime.UtcNow.AddDays(result.RefreshTokenExpirationDays)
                 });
@@ -79,7 +68,7 @@ namespace CQRSExample.Controllers
                 {
                     HttpOnly = true,
                     Secure = true, // Set to true in production for HTTPS
-                    SameSite = SameSiteMode.Strict,
+                    SameSite = SameSiteMode.None,
                     Expires = DateTime.UtcNow.AddDays(result.RefreshTokenExpirationDays)
                 });
 

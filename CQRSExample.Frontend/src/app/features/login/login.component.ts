@@ -28,16 +28,16 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.loginForm = this.fb.group({
-      username: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required]
     });
   }
 
   onLogin(): void {
     if (this.loginForm.valid) {
-      const { username, password } = this.loginForm.value;
+      const { email, password } = this.loginForm.value;
 
-      this.authService.login(username, password).subscribe({
+      this.authService.login(email, password).subscribe({
         next: (response) => {
           this.message = 'LOGIN.SUCCESS_MESSAGE';
           this.messageType = 'success';
@@ -48,25 +48,6 @@ export class LoginComponent implements OnInit {
           this.message = 'LOGIN.FAILED_MESSAGE';
           this.messageType = 'error';
           console.error('Login failed', error);
-        }
-      });
-    }
-  }
-
-  onRegisterUser(): void {
-    if (this.loginForm.valid) {
-      const { username, password } = this.loginForm.value;
-      this.authService.register(username, password).subscribe({
-        next: (response) => {
-          this.message = 'LOGIN.REGISTER_SUCCESS_MESSAGE';
-          this.messageType = 'success';
-          console.log('User registration successful', response);
-          this.loginForm.reset();
-        },
-        error: (error) => {
-          this.message = 'LOGIN.REGISTER_FAILED_MESSAGE';
-          this.messageType = 'error';
-          console.error('User registration failed', error);
         }
       });
     }

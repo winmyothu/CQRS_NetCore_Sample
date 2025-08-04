@@ -69,13 +69,23 @@ builder.Services.AddCors(options =>
     options.AddPolicy("AllowAngularApp",
         builder =>
         {
-            builder.WithOrigins("https://localhost:4200")
+            builder.WithOrigins("http://localhost:4200")
             .AllowCredentials() // Allow credentials for cookies
                    .AllowAnyHeader()
                    .AllowAnyMethod();
                    
         });
 });
+
+
+
+builder.Services.Configure<CookiePolicyOptions>(options =>
+{
+    options.MinimumSameSitePolicy = SameSiteMode.None;
+    //options.Secure = CookieSecurePolicy.None;
+});
+
+
 
 var app = builder.Build();
 
@@ -89,6 +99,7 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseCors("AllowAngularApp");
+app.UseCookiePolicy();
 
 app.UseAuthentication(); // IMPORTANT: This must be before UseAuthorization
 app.UseAuthorization();

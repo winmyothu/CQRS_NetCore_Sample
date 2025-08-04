@@ -3,5 +3,5 @@ using CQRSExample.Features.Auth.Models;
 
 namespace CQRSExample.Features.Auth.Commands
 {
-    public record RegisterUserCommand(string Username, string Password) : IRequest<AuthResult>;
+    public record RegisterUserCommand(string Username, string Email, string Password) : IRequest<AuthResult>;
 }

@@ -34,6 +34,7 @@
   "LOGIN": {
     "TITLE": "Admin Login",
     "USERNAME": "Username",
+    "EMAIL": "Email",
     "PASSWORD": "Password",
     "LOGIN_BUTTON": "Login",
     "REGISTER_BUTTON": "Register",

@@ -32,6 +32,7 @@ namespace CQRSExample.Features.Auth.Handlers
             var user = new User
             {
                 Username = request.Username,
+                Email = request.Email,
                 PasswordHash = passwordHash,
                 Role = isAdmin ? "Admin" : "User",
                 RefreshTokens = new List<RefreshToken>() // Initialize the collection

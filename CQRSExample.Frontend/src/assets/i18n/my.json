@@ -34,6 +34,7 @@
   "LOGIN": {
     "TITLE": "အက်ဒမင်ဝင်ရောက်ရန်",
     "USERNAME": "အသုံးပြုသူအမည်",
+    "EMAIL": "အီးမေးလ်",
     "PASSWORD": "စကားဝှက်",
     "LOGIN_BUTTON": "ဝင်ရောက်ရန်",
     "REGISTER_BUTTON": "မှတ်ပုံတင်ရန်",
